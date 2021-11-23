@@ -1,0 +1,9 @@
+* {
+    /*font-family: "Montserrat", sans-serif;*/
+    font-family: 'Poppins', sans-serif;
+}
+
+.modal-top {
+  z-index: 1060;
+}
+

@@ -1,0 +1,33 @@
+<html>
+<head>
+    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//kit.fontawesome.com/bad8367181.js"></script>
+
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="//unpkg.com/http-vue-loader"></script>
+
+
+    <meta name="viewport" content="width=device-width" />
+
+</head>
+<body>
+
+    <div id="app">
+        <!-- <login v-if="!logged && !admin && !showAdminLogin" @login="login"></login> -->
+        <!-- <login-admin v-else-if="!logged && !admin && showAdminLogin" @login="adminLogin"></login-admin> -->
+        <router-view :key="$route.path" :admin.sync="admin" :logged.sync="logged" @logout="logout" />
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

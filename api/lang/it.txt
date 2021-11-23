@@ -1,0 +1,68 @@
+home	Home
+statistics	Statistiche
+logout	Logout
+user	Username
+password	Password
+why	Perché prenderesti in giro questo utente?
+select	Selezionare
+select_type	Selezionare il tipo di insulto
+option1	Forma fisica
+option2	Abbigliamento
+option3	Posa
+option4	Espressione
+option5	Location
+option6	Attività
+option100	Altro
+what	Cosa scriveresti?
+insert_comment  Inserire un commento
+if	Se vedessi questa immagine su Instagram, prenderesti in giro chi l'ha postata?
+yes	Sì
+no	No
+photos0	Fotografie totali
+photos1	Fotografie classificate
+photos2	Fotografie da classificare
+error	Errore
+nophoto	Non ci sono fotografie da classificare
+insert	Inserisci testo
+confirm	Conferma
+cancel	Annulla
+
+adminpanel	Admin
+loginpanel	Torna al login come utente
+login_failed	Login non riuscito
+logout_ok	Logout effettuato correttamente
+
+no_institutions	Non ci sono istituzioni
+unknown_institutions	Istituzione non esistente
+add_institution	Aggiungi istituzione
+edit_institution	Modifica istituzione
+institutions	Istituzioni
+must_name	Inserire un nome
+institution_code	Codice istituzione
+no_institution_code	Codice istituzione non valido
+create_users	Genera utenti
+ok_create_users	Utenti generati correttamente, è necessario scaricare l'elenco delle password e cifrarle per poter permettere il login
+reset_users	Reset utenti
+reset_confirm	Attenzione! Utenti e risultati delle annotazioni già presenti verranno eliminati. Si desidera continuare?
+list_users	Elenco utenti
+lock_users	Conferma utenti
+lock_users_info Per confermare l'elenco degli utenti è necessario prima inserire le informazioni
+lock_confirm	Si desidera confermare l'elenco degli utenti? Dopo questa operazione le password non saranno più visualizzabili e gli utenti potranno effettuare il login. L'operazione è irreversibile
+users_per_photo	Annotazioni per ciascuna fotografia
+user_groups	Gruppi di utenti
+debug_photos	Numero immagini per l'utente di debug
+files_folder	Nome della cartella con le immagini
+
+name	Nome
+
+add	Aggiungi
+edit	Modifica
+delete	Elimina
+delete_confirm	Si è sicuri di voler eliminare il record?
+ok	Ok
+close	Chiudi
+confirm	Conferma
+not_logged	Utente non loggato
+language	Lingua
+wrong_language	Lingua non supportata
+wrong_code	Codice non valido

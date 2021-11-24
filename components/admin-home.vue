@@ -44,7 +44,7 @@
                                     type="button"
                                     class="btn btn-sm btn-success mt-2"
                                 >
-                                    <a class=' btn btn-sm btn-success' href='#' @click.prevent='editParametersForm(institution.id)' ><!--{{lang.add_institution}}--><i class="fas fa-cogs"></i> {{lang.edit_institution}} </a>
+                                    <a class=' btn btn-sm btn-success' href='#' @click.prevent='editParametersForm(institution.id)' ><!--{{lang.add_institution }}--><i class="fas fa-cogs"></i> {{lang.edit_institution}} </a>
 
                                 </button>
                             </span>

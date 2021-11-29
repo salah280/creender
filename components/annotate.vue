@@ -1,11 +1,13 @@
 <template>
     <div>
         <modal :id="modalID" :data="modalData"></modal>
+      
         <login :logininfo.sync="logininfo" v-if="!logged" @login="login"></login>
+        
 
         <div v-else>
             <add-comment :id="commentID" :data.sync="yesData" @confirm="submitForm"></add-comment>
-            
+           
                 <!--<nav class="navbar navbar-expand-md navbar-light bg-light">
                     <router-link class="navbar-brand" to="/">
                         <img src="img/creender-top.png" height="30" alt="" class="d-inline-block align-top" />
@@ -100,15 +102,18 @@
                         </div>-->
                     
                     <div id="cont-photo " v-else>
-
+                        
+                        
                         <div class="row justify-content-center " v-if="photo.id !== undefined">
+                            
                             <div class="col-lg-4 col-md-8 col-xs-12 ">
                                 <div class="container text-center mt-5 cont-foto">
                                     <img :src="photo.link" class="img-fluid rounded" id="main-image" >
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-xs-12 my-auto text-center">
-                                <h5 class="d-sm-block mt-2">{{ lang.if }}</h5>
+                            <div class="col-lg-3 col-md-6 col-xs-12 my-auto text-center"   >
+                                <h5 class="d-sm-block mt-2" v-for="item in currentID" :key="item.id"  >{{item.info.sent1}}</h5>
+                               
                                 <form id="photo-form ">
                                     <div class="btn btn-danger btn-lg mt-2" @click="userClickedYes" :class="{ 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-yes">{{ lang.yes }}</div>
                                     <div class="btn btn-lg mt-2" @click="userClickedNo" :class="{ 'btn-success': buttons.clickedNo, 'btn-info': !buttons.clickedNo, 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-no">{{ lang.no }}</div>
@@ -136,6 +141,7 @@
 </template>
 
 <script>
+   
 
     function absorbEvent_(event) {
         var e = event || window.event;
@@ -154,6 +160,7 @@
     }
 
     module.exports = {
+        
         data: function() {
             return {
                 "modalID": "modalID",
@@ -182,14 +189,17 @@
                 "yesData": {
                     value: 0,
                     comment: ""
-                }
+                },
+                "institutions":[],
             }
         },
         props: ['logged'],
+        
         components: {
             "login": httpVueLoader('components/login.vue'),
             "modal": httpVueLoader('components/modal.vue'),
-            "add-comment": httpVueLoader('components/add-comment.vue')
+            "add-comment": httpVueLoader('components/add-comment.vue'),
+           
         },
         computed: {
             submitData: function() {
@@ -197,7 +207,18 @@
                 ret['no'] = this.buttons.clickedNo;
                 ret['id'] = this.photo.id;
                 return $.extend(ret, this.yesData);
+            },
+            currentID() {
+                let tempInstitution = this.institutions
+                
+                tempInstitution = tempInstitution.filter((item) => {
+                return (item.id == this.logged_user.institution)
+                })
+                
+                return tempInstitution;
             }
+                
+        
         },
         updated: function() {
             var w = Math.max($("#btn-no").width(), $("#btn-yes").width());
@@ -210,8 +231,11 @@
         },
         mounted: function() {
 
+     
+            this.updateInstitutions();
+        
             this.updateStatistics();
-            // this.updateLoginInfo();
+            this.updateLoginInfo();
 
             this.reset();
 
@@ -235,6 +259,7 @@
         //     });
         // },
         methods: {
+            
             reset: function() {
                 var self = this;
                 setTimeout(function() {
@@ -300,6 +325,7 @@
                 $.ajax("api/?action=loginInfo", {
                     success: function(data) {
                         self.logged_user = data.login;
+                       
                     }
                 });
             },
@@ -332,7 +358,7 @@
                             }
                             else {
                                 self.$emit("update:logged", true);
-                                self.logged_user = data.data;
+                                self.S_user = data.data;
                                 self.updateStatistics();
                             }
                         }
@@ -345,6 +371,17 @@
             },
             logout: function() {
                 this.$emit("logout");
+            },
+             updateInstitutions: function() {
+                var self = this;
+                $.ajax("api/?action=getInstitutions", {
+                    success: function(data) {
+                        if (data.result == "OK") {
+                            self.institutions= data.values
+                                
+                        }
+                    }
+                });
             }
         }
     }

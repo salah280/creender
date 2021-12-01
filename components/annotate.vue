@@ -66,12 +66,13 @@
             
 
             
-                    <div id="content" v-if="$route.path == '/statistics'">
-                        <div class="container text-center mb-3">
+                    <div id="content" v-if="$route.path == '/statistics' && logged_user">
+                        <div class="container text-center mx-auto mb-3">
                                 <h2>{{ lang.statistics }}</h2>
                         </div>
-                            <div class="table-responsive mx-auto">
-                                <table class="table table-sm table-bordered">
+                        <div class="container-fluid">
+                            <div class="table-responsive ">
+                                <table class="table table-sm table-bordered ">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">{{ lang.user }}</th>
@@ -90,6 +91,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
                     </div>
                         <!--<div class="row">
                             <div class="col">
@@ -297,10 +299,10 @@
                         alert(this.lang.select_type);
                         return;
                     }
-                    if (this.submitData.comment == "") {
+                    /*if (this.submitData.comment == "") {
                         alert(this.lang.insert_comment);
                         return;
-                    }
+                    }*/
                 }
                 var self = this;
                 $.ajax("api/?action=submit", {

@@ -1,30 +1,38 @@
-<template>
+<template >
     <div>
         <modal :id="modalID" :data="modalData"></modal>
         <form-institutions :id="instModalID" :info="institutionInfo" :title="instModalTitle" @passdata="addInstitution"></form-institutions>
-        <edit-parameters  id="editModalID" :info="institutionInfo" :title="editModalTitle" @passdata="editParameters"></edit-parameters>
+        <edit-parameters  :id="editModalID" :info="institutionInfo" :title="editModalTitle" @passdata="editParameters"></edit-parameters>
         <generate-users ref="generateUsers" :id="generateUsersID" :instid="institutionInfo.id" @passdata="generateUsers"></generate-users>
 
         <div class="container-fluid text-center pa-5">
                 <h1 class="mt-5">
                     {{ lang.institutions }} 
                 </h1>
-                 <a class=' btn btn-success mb-3 ' href='#' @click.prevent='addInstitutionForm' ><i class="fas fa-plus"></i>  {{lang.add_institution}} </a>
+                <a class=' btn btn-success mb-3 ' href='#' @click.prevent='addInstitutionForm' ><i class="fas fa-plus"></i>  {{lang.add_institution}} </a>
+                
+        </div>   
 
+        <div class="container-fluid text-center mt-5"  v-if="Object.keys(this.institutions).length == 0">
+            <img src="img/null.png" height="100" alt="" class="mb-5"/>
+            <br>
+            <p>{{ lang.no_institutions }}</p>            
         </div>
 
-         <div class="container-fluid">
+        <div class="container-fluid" v-else>
             <div class="row justify-content-center ">
-                <div class="col-lg-3 col-md-6 col-sm-8 col-xs-12 mt-1" v-for="institution in institutions" :key="institution.id">
-                    <div class="card bg-light mx-2 mb-2 rounded-lg mw-100" >
+                <div class="col-lg-3 col-md-6 col-sm-8 col-xs-12 mt-1" v-for="institution in institutions" :key="institution.id" >
+                    <div class="card bg-light mx-2 mb-2 rounded-lg mw-100">
+
                         <div class="card-header">
-                            <h5 class="card-title text-center mt-2"><b>Name:</b>{{ institution.name }}</h5>
+                            <h5 class="card-title text-center mt-2"><b>Name:  </b>{{ institution.name }}</h5>
                         </div>
+
                         <div class="card-body" >
                             <p class="card-text"><b>Id:</b>  {{ institution.id }}</p>
                             <p class="card-text"><b>Language:</b>  {{ institution.language }}</p>
                             <p class="card-text"><b>Code:</b>   {{ institution.id }}-{{ institution.code }}</p>
-                            <p class="card-text"><b>Users:</b>   {{ institution.usercount }}</p>
+                            <p class="card-text"><b>Users:</b>   {{ institution.usercount }}</p>                            
                         </div>
 
                         <div class="card-footer text-center">
@@ -40,12 +48,8 @@
                                 <a v-if="institution.confirmed_users == 0" title="Download CSV" class='btn btn-sm btn-primary' :href='"api/?action=exportCsv&id=" + institution.id'><i class="fas fa-file-csv"></i></a>
                                 <a v-if="institution.confirmed_users == 0" onclick="location.reload();" class='btn btn-sm btn-success' :title="lang.lock_users" href='#' @click.prevent='lockUsers(institution.id)'><i class="fas fa-user-lock"></i></a>
                                 <br>
-                                <button
-                                    type="button"
-                                    class="btn btn-sm btn-success mt-2"
-                                >
-                                    <a class=' btn btn-sm btn-success' href='#' @click.prevent='editParametersForm(institution.id)' ><!--{{lang.add_institution }}--><i class="fas fa-cogs"></i> {{lang.edit_institution}} </a>
-
+                                <button type="button" class="btn btn-sm btn-success mt-2">
+                                    <a class=' btn btn-sm btn-success' href='#' @click.prevent='editParametersForm(institution.id)'><i class="fas fa-cogs"></i> {{lang.edit_institution}} </a>
                                 </button>
                             </span>
                         </div>
@@ -53,13 +57,7 @@
                     </div>
                 </div>
             </div>
-                    
-       
-            <div class="mx-auto mt-4 text-center">
-               
-            </div>
         </div>
-
     </div>
 </template>
 
@@ -92,8 +90,7 @@
                         'choices':[]
                     }
                 },
-                
-                "institutions": {}
+                'institutions':{}
             };
         },
         
@@ -109,7 +106,7 @@
                     }
                 }
                 return ret;
-            }
+            },
         },
         components: {
             "form-institutions": httpVueLoader('components/form-institutions.vue'),
@@ -119,7 +116,6 @@
         },
         mounted: function() {
             this.updateInstitutions();
-          
         },
         
         methods: { 
@@ -205,7 +201,6 @@
                         if (data.result == "OK") {
                             for (var i=0; i < data.values.length; i++) {
                                 self.institutions[data.values[i].id] = data.values[i]
-                                
                             }
                         }
                     }
@@ -223,7 +218,7 @@
                     this.institutions[id].info = this.institutionInfo.info
                 }
                 this.institutionInfo = this.institutions[id];
-                $("#editModalID").modal();
+                $("#" + this.editModalID).modal();
             },
             deleteInstitution: function(id) {
                 if (confirm(this.lang.delete_confirm)) {
@@ -300,15 +295,14 @@
                         if (data.result == "OK") {
                             self.institutionInfo = data.values;  
                             
+                            
                             if (confirm('Conferma modifiche?')) {
-                                    $("#editModalID").modal('hide');
+                                    $("#" + self.editModalID).modal('hide');
                                 }
                                 else {
                                     
                                 }
-                            
-                               
-                                             
+                
                         }
                         else {
                             alert(data.error);

@@ -1,34 +1,12 @@
 <template>
     <div>
+
         <modal :id="modalID" :data="modalData"></modal>
-      
         <login :logininfo.sync="logininfo" v-if="!logged" @login="login"></login>
         
-
         <div v-else>
+
             <add-comment :id="commentID" :data.sync="yesData" @confirm="submitForm"></add-comment>
-           
-                <!--<nav class="navbar navbar-expand-md navbar-light bg-light">
-                    <router-link class="navbar-brand" to="/">
-                        <img src="img/creender-top.png" height="30" alt="" class="d-inline-block align-top" />
-                    </router-link>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <router-link class="nav-link" to="/">{{ lang.home }}</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link class="nav-link" to="/statistics">{{ lang.statistics }}</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-sm btn-danger" href="#" @click.prevent="logout">{{ lang.logout }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>-->
 
                 <nav class="navbar navbar-expand-md navbar-light bg-transparent ">
                     
@@ -41,8 +19,6 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                    
-
                     
                         <div class="navbar-collapse collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav">
@@ -64,11 +40,9 @@
                         </div>
                 </nav> 
             
-
-            
                     <div id="content" v-if="$route.path == '/statistics' && logged_user">
                         <div class="container text-center mx-auto mb-3">
-                                <h2>{{ lang.statistics }}</h2>
+                            <h2>{{ lang.statistics }}</h2>
                         </div>
                         <div class="container-fluid">
                             <div class="table-responsive ">
@@ -93,58 +67,44 @@
                             </div>
                         </div>
                     </div>
-                        <!--<div class="row">
-                            <div class="col">
-                                <h2>{{ lang.statistics }}</h2>
-                                <p>{{ lang.user }}: {{ logged_user.username }}</p>
-                                <p>{{ lang.photos0 }}: {{ statistics.annotatedPhotos + statistics.todoPhotos }}</p>
-                                <p>{{ lang.photos1 }}: {{ statistics.annotatedPhotos }}</p>
-                                <p>{{ lang.photos2 }}: {{ statistics.todoPhotos }}</p>
-                            </div>
-                        </div>-->
-                    
-                    <div id="cont-photo " v-else>
-                        
-                        
-                        <div class="row justify-content-center " v-if="photo.id !== undefined">
+                       
+                    <div id="cont-photo " v-else>          
+                        <div class="row justify-content-center " v-if="photo.id !== undefined">           
                             
                             <div class="col-lg-4 col-md-8 col-xs-12 ">
                                 <div class="container text-center mt-5 cont-foto">
                                     <img :src="photo.link" class="img-fluid rounded" id="main-image" >
                                 </div>
                             </div>
+
                             <div class="col-lg-3 col-md-6 col-xs-12 my-auto text-center"   >
-                                <h5 class="d-sm-block mt-2" v-for="item in currentID" :key="item.id"  >{{item.info.sent1}}</h5>
+                                <h5 class="d-sm-block mt-2" v-for="info in institution" :key="info.index"  >{{info.sent1}}</h5>
                                
                                 <form id="photo-form ">
                                     <div class="btn btn-danger btn-lg mt-2" @click="userClickedYes" :class="{ 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-yes">{{ lang.yes }}</div>
                                     <div class="btn btn-lg mt-2" @click="userClickedNo" :class="{ 'btn-success': buttons.clickedNo, 'btn-info': !buttons.clickedNo, 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-no">{{ lang.no }}</div>
-
                                     <input type="hidden" name="value" v-model="yesData.value" />
                                     <input type="hidden" name="comment" v-model="yesData.comment" />
                                     <input type="hidden" name="no" v-model="buttons.clickedNo" />
                                     <input type="hidden" name="id" v-model="photo.id" />
-                                </form>
-                            </div>
-                            
+                                </form>    
+                            </div>     
                         </div>
 
                         <div v-else class="container-fluid text-center mt-5">
-                             <img src="img/null.png" height="100" alt="" class="mb-5"/>
+                            
+                            <img src="img/null.png" height="100" alt="" class="mb-5"/>
                             <br>
                             {{ lang.nophoto }}
+                        
                         </div>
-
                     </div>
-               
-            
         </div>
     </div>
 </template>
 
 <script>
    
-
     function absorbEvent_(event) {
         var e = event || window.event;
         e.preventDefault && e.preventDefault();
@@ -192,7 +152,8 @@
                     value: 0,
                     comment: ""
                 },
-                "institutions":[],
+                "institution":[]
+                /*"institutions":[],*/
             }
         },
         props: ['logged'],
@@ -204,23 +165,14 @@
            
         },
         computed: {
+
             submitData: function() {
                 ret = {};
                 ret['no'] = this.buttons.clickedNo;
                 ret['id'] = this.photo.id;
                 return $.extend(ret, this.yesData);
-            },
-            currentID() {
-                let tempInstitution = this.institutions
-                
-                tempInstitution = tempInstitution.filter((item) => {
-                return (item.id == this.logged_user.institution)
-                })
-                
-                return tempInstitution;
             }
                 
-        
         },
         updated: function() {
             var w = Math.max($("#btn-no").width(), $("#btn-yes").width());
@@ -234,8 +186,6 @@
         mounted: function() {
 
      
-            this.updateInstitutions();
-        
             this.updateStatistics();
             this.updateLoginInfo();
 
@@ -327,7 +277,7 @@
                 $.ajax("api/?action=loginInfo", {
                     success: function(data) {
                         self.logged_user = data.login;
-                       
+                        self.institution = data.institution;
                     }
                 });
             },
@@ -373,8 +323,8 @@
             },
             logout: function() {
                 this.$emit("logout");
-            },
-             updateInstitutions: function() {
+            }
+            /* updateInstitutions: function() {
                 var self = this;
                 $.ajax("api/?action=getInstitutions", {
                     success: function(data) {
@@ -384,7 +334,7 @@
                         }
                     }
                 });
-            }
+            }*/
         }
     }
 </script>

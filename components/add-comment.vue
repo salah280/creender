@@ -3,16 +3,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" v-for="item in currentID" :key="item.id">{{ item.info.sent2 }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" v-for="info in institution" :key="info.index">{{ info.sent2 }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                    
-                    <form  v-for="item in currentID" :key="item.id">
+                    
                         <p>Scegli una o più opzioni</p>
-                        <div id="radio-value" v-for="choice in item.info.choices" :key="choice" >
+                        <form  v-for="info in institution" :key="info.index">
+                        <div id="radio-value" v-for="choice in info.choices" :key="choice" >
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" v-model="data.value" name="s-value" id="radioChoice" :value="choice"   >
                                 <label class="form-check-label" :for="choice">
@@ -21,10 +22,11 @@
                             </div>
                         </div>
 
-            
-                        <div class="form-group" v-if="item.info.other">
+                        
+                        <div class="form-group" v-if="info.other">
+                            <hr/>
                             <label for="message-text" class="col-form-label">{{ lang.what }} ({{lang.insert}})</label>
-                            <textarea class="form-control" id="message-text" v-model="data.comment"></textarea>
+                            <textarea class="form-control" id="message-text"  v-model="data.comment" ></textarea>
                         </div>    
                             
                     </form>
@@ -45,22 +47,11 @@
         data: function() {
             return {
                 clickedConfirm: false,
-                "institutions":[],
+                "institution": [],
                 "logged_user": {}
             }
         },
-        computed: {
-            currentID() {
-                let tempInstitution = this.institutions
-                
-                tempInstitution = tempInstitution.filter((item) => {
-                return (item.id == this.logged_user.institution)
-                })
-                
-                return tempInstitution;
-            }
 
-        },
         mounted: function() {
             comp = this;
             $("#" + this.id).on("show.bs.modal", function() {
@@ -88,7 +79,7 @@
                 $.ajax("api/?action=loginInfo", {
                     success: function(data) {
                         self.logged_user = data.login;
-                       
+                        self.institution = data.institution;
                     }
                 });
             },

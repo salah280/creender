@@ -77,6 +77,22 @@ switch ($Action) {
         if (isset($_SESSION['Login'])) {
             $ret['logged'] = true;
             $ret['login'] = $_SESSION['Login'];
+            $query = "SELECT i.*, COUNT(u.id) usercount
+                FROM institutions i
+                LEFT OUTER JOIN users u ON u.institution = i.id
+                WHERE i.hidden = 0 AND u.id = '".$ret['login']['id']."'
+                GROUP BY i.id
+                ORDER BY i.name";
+            $res = $mysqli->query($query);
+            $allData = $res->fetch_all(MYSQLI_ASSOC);
+            foreach ($allData as &$datum) {
+                if ($datum['info']) {
+                    $datum['info'] = unserialize($datum['info']);
+                }
+            }
+            
+            $ret['institution'] = $allData[0];
+
         }
         if (isset($_SESSION['Admin'])) {
             $ret['admin'] = true;
@@ -612,11 +628,11 @@ switch ($Action) {
                     $ret['error'] = "Missing sent2";
                     break;
                 }
-                if ($info['other'] && !$info['sent3']) {
+                /*if (!$info['other'] && !$info['sent3']) {
                     $ret['result'] = "ERR";
                     $ret['error'] = "Missing sent3";
                     break;
-                }
+                }*/
                 if (!is_array($info['choices']) || count($info['choices']) == 0) {
                     $ret['result'] = "ERR";
                     $ret['error'] = "Missing choices";

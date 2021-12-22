@@ -60,7 +60,7 @@
                 comp.data.value = "0";
                 comp.data.comment = "";
             });
-            this.updateInstitutions();
+           
             this.updateLoginInfo();
             
         },
@@ -80,17 +80,6 @@
                     success: function(data) {
                         self.logged_user = data.login;
                         self.institution = data.institution;
-                    }
-                });
-            },
-            updateInstitutions: function() {
-                var self = this;
-                $.ajax("api/?action=getInstitutions", {
-                    success: function(data) {
-                        if (data.result == "OK") {
-                            self.institutions= data.values
-                                
-                        }
                     }
                 });
             }

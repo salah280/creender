@@ -5,7 +5,7 @@ user	Username
 password	Password
 why	Perché prenderesti in giro questo utente?
 select	Selezionare
-select_type	Selezionare il tipo di insulto
+select_type	Selezionare almeno un opzione
 option1	Forma fisica
 option2	Abbigliamento
 option3	Posa
@@ -35,7 +35,7 @@ logout_ok	Logout effettuato correttamente
 no_institutions	Non ci sono istituzioni
 unknown_institutions	Istituzione non esistente
 add_institution	Aggiungi istituzione
-edit_institution	Modifica istituzione
+edit_institution	Modifica Task
 institutions	Istituzioni
 must_name	Inserire un nome
 institution_code	Codice istituzione

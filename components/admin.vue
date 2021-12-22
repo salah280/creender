@@ -10,32 +10,26 @@
                     <router-link class="navbar-brand" to="/admin">
                         <img src="img/creender-top.png" height="30" alt="" />
                     </router-link>
-                     {{ lang.adminpanel }}
-                     
+                     {{ lang.adminpanel }}   
                 </a>
               
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                    <div class="collapse navbar-collapse"></div>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                             
-
-                            <ul class="navbar-nav ml-auto">
+                <div class="collapse navbar-collapse"></div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item ">
                                      <a class='btn btn-sm btn-danger' href="#" @click.prevent="logout">{{ lang.logout }}</a>
                                 </li>
                             </ul>
-
-                        </div>
-                </nav> 
+                    </div>
+            </nav> 
             
- 
             <div class="container-fluid p-5" id="content">
-                <router-view></router-view>
+                <router-view/>
             </div>
-
         </div>
     </div>
 </template>

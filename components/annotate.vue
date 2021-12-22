@@ -77,17 +77,22 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-6 col-xs-12 my-auto text-center"   >
+                            <div class="col-lg-3 col-md-6 col-xs-12 my-auto text-center">
                                 <h5 class="d-sm-block mt-2" v-for="info in institution" :key="info.index"  >{{info.sent1}}</h5>
                                
-                                <form id="photo-form ">
-                                    <div class="btn btn-danger btn-lg mt-2" @click="userClickedYes" :class="{ 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-yes">{{ lang.yes }}</div>
-                                    <div class="btn btn-lg mt-2" @click="userClickedNo" :class="{ 'btn-success': buttons.clickedNo, 'btn-info': !buttons.clickedNo, 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-no">{{ lang.no }}</div>
-                                    <input type="hidden" name="value" v-model="yesData.value" />
-                                    <input type="hidden" name="comment" v-model="yesData.comment" />
-                                    <input type="hidden" name="no" v-model="buttons.clickedNo" />
-                                    <input type="hidden" name="id" v-model="photo.id" />
-                                </form>    
+                                 <form id="photo-form">
+    
+                                        <div class="btn btn-danger btn-lg mt-2" @click="userClickedYes" :class="{ 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-yes">{{ lang.yes }}</div>        
+                                            
+                                        <div class="btn btn-lg mt-2" @click="userClickedNo" :class="{ 'btn-success': buttons.clickedNo, 'btn-info': !buttons.clickedNo, 'btn-disabled': !buttons.okToClick, 'c-pointer': buttons.okToClick }" id="btn-no">{{ lang.no }}</div>
+                                                            
+                                        <input type="hidden" name="value" v-model="yesData.value" />
+                                        <input type="hidden" name="comment" v-model="yesData.comment" />
+                                        <input type="hidden" name="no" v-model="buttons.clickedNo" />
+                                        <input type="hidden" name="id" v-model="photo.id" />
+                                    
+                                </form>  
+
                             </div>     
                         </div>
 
@@ -153,16 +158,15 @@
                     comment: ""
                 },
                 "institution":[]
-                /*"institutions":[],*/
             }
         },
+
         props: ['logged'],
         
         components: {
             "login": httpVueLoader('components/login.vue'),
             "modal": httpVueLoader('components/modal.vue'),
-            "add-comment": httpVueLoader('components/add-comment.vue'),
-           
+            "add-comment": httpVueLoader('components/add-comment.vue'),         
         },
         computed: {
 
@@ -184,8 +188,7 @@
             }
         },
         mounted: function() {
-
-     
+            
             this.updateStatistics();
             this.updateLoginInfo();
 
@@ -203,13 +206,7 @@
             }
 
         },
-        // beforeRouteEnter: function(to, from, next) {
-        //     next(vm => {
-        //         if (to.path === "/statistics") {
-        //             vm.updateStatistics();
-        //         }
-        //     });
-        // },
+       
         methods: {
             
             reset: function() {
@@ -276,8 +273,8 @@
                 var self = this;
                 $.ajax("api/?action=loginInfo", {
                     success: function(data) {
-                        self.logged_user = data.login;
                         self.institution = data.institution;
+                        self.logged_user = data.login;   
                     }
                 });
             },
@@ -324,17 +321,7 @@
             logout: function() {
                 this.$emit("logout");
             }
-            /* updateInstitutions: function() {
-                var self = this;
-                $.ajax("api/?action=getInstitutions", {
-                    success: function(data) {
-                        if (data.result == "OK") {
-                            self.institutions= data.values
-                                
-                        }
-                    }
-                });
-            }*/
+
         }
     }
 </script>

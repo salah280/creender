@@ -1,0 +1,23 @@
+[33mcommit e6029e64112240aac8597ad1c3e097dfcb95125e[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Salah Skalli <salah.skalli@studenti.unitn.it>
+Date:   Mon Nov 29 11:24:24 2021 +0100
+
+    Aggiunta ricezione Institutioninfo per l'istituzione a cui appartiene l'user
+
+[33mcommit e0d02a157d5c3602989cdf8f3b89f3682e73b4d8[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Salah Skalli <salah.skalli@studenti.unitn.it>
+Date:   Wed Nov 24 13:22:09 2021 +0100
+
+    problema nel caricamento delle istituzioni
+
+[33mcommit 4ea127fb0a1e65d54332a2e6978d0af755b9f58f[m
+Author: Salah Skalli <salah.skalli@studenti.unitn.it>
+Date:   Tue Nov 23 20:00:04 2021 +0100
+
+    versione attuale
+
+[33mcommit f44f972888d4f4b4acb5843e2aa88caed6c1d535[m
+Author: Salah Skalli <salah.skalli@studenti.unitn.it>
+Date:   Tue Nov 23 19:36:32 2021 +0100
+
+    versione attuale

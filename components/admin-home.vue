@@ -129,11 +129,6 @@
                         if (data.result == "OK") {
                             $("#" + self.generateUsersID).modal("hide");
 
-                            /*self.modalData.body = self.lang.ok_create_users;
-                            self.modalData.button = self.lang.ok;
-                            self.modalData.title = self.lang.confirm;
-                            
-                            $("#" + self.modalID).modal();*/
                             if (confirm(self.lang.ok_create_users)) {
                                     window.location.reload(true)
                                     self.updateInstitutions();
@@ -294,15 +289,12 @@
                     success: function(data) {
                         if (data.result == "OK") {
                             self.institutionInfo = data.values;  
-                            
-                            
+                                     
                             if (confirm('Conferma modifiche?')) {
                                     $("#" + self.editModalID).modal('hide');
                                 }
-                                else {
-                                    
+                                else {                                 
                                 }
-                
                         }
                         else {
                             alert(data.error);

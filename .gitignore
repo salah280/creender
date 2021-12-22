@@ -1,0 +1,8 @@
+api/config.php
+
+api/composer.lock
+api/vendor
+
+images
+tmp
+
